@@ -46,7 +46,8 @@ function Signup() {
         <Formik
           initialValues={{
             username: "",
-            password: ""
+            password: "",
+            mame: ""
           }}
           validationSchema={signUpSchema}
           onSubmit={(values, { setSubmitting }) => {

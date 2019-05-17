@@ -2,13 +2,18 @@ import { useState, useEffect } from "react";
 
 export default function useAuth() {
   const [user, setUser] = useState({});
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     let userData = localStorage.getItem("userData");
     if (userData && userData != "undefined") {
       userData = JSON.parse(localStorage.userData);
       setUser(userData);
-    } else setUser({ loggedIn: false });
+    } else {
+      console.log(userData);
+      setUser({ loggedIn: false });
+    }
+    setLoaded(true);
   }, []);
 
   const setAuth = (username, role) => {
@@ -24,5 +29,5 @@ export default function useAuth() {
     setUser({ loggedIn: false });
   };
 
-  return [user, setAuth, removeAuth];
+  return [user,loaded, setAuth, removeAuth];
 }

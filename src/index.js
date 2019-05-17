@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { BrowserRouter } from "react-router-dom";
 
 import { ApolloClient } from "apollo-client";
 import { HttpLink } from "apollo-link-http";
@@ -24,7 +25,9 @@ const engine = new Styletron();
 ReactDOM.render(
   <ApolloProvider client={client}>
     <StyletronProvider value={engine}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </StyletronProvider>
   </ApolloProvider>,
   document.getElementById("root")

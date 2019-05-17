@@ -4,6 +4,8 @@ import { Link, Redirect } from "react-router-dom";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 
+import { Spinner } from "baseui/spinner";
+
 const REVIEWS_PER_PAGE = 10;
 
 const Home = ({
@@ -17,6 +19,7 @@ const Home = ({
     const areMorePosts = reviews.length < reviewsConnection.aggregate.count;
     return (
       <section>
+        <Link to="/review/add">Add Review</Link>
         <ul className="Home-ul">
           {reviews.map(review => (
             <li className="Home-li" key={`review-${review.id}`}>
@@ -53,7 +56,7 @@ const Home = ({
       </section>
     );
   }
-  return <h2>Loading reviews...</h2>;
+  return <Spinner />;
 };
 export const reviews = gql`
   query reviews {
@@ -64,6 +67,9 @@ export const reviews = gql`
       createdAt
       image {
         handle
+      }
+      author {
+        username
       }
     }
     reviewsConnection {

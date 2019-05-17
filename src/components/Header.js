@@ -1,4 +1,6 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+
 import {
   HeaderNavigation,
   ALIGN,
@@ -21,7 +23,9 @@ export default Header => {
   return (
     <HeaderNavigation>
       <NavigationList align={ALIGN.left}>
-        <NavigationItem>Review App</NavigationItem>
+        <NavigationItem>
+          <Link to="/">Review App</Link>
+        </NavigationItem>
       </NavigationList>
       <NavigationList align={ALIGN.center} />
       {/* <NavigationList align={ALIGN.right}>

@@ -17,3 +17,8 @@ export const loginSchema = object().shape({
     .matches(usernameRegExp, "Invalid username"),
   password: string().required("Enter password")
 });
+
+export const reviewSchema = object().shape({
+  title: string()
+    .required("Enter title")
+});
