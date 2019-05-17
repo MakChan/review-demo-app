@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
@@ -8,10 +8,8 @@ const REVIEWS_PER_PAGE = 10;
 
 const Home = ({
   data: { loading, error, reviews, reviewsConnection, networkStatus },
-  loadMorePosts,
-  user
+  loadMorePosts
 }) => {
-  if (user.role === "ADMIN") return <Redirect to={{ pathname: "/admin" }} />;
   if (error) return <h1>Error fetching reviews!</h1>;
   if (reviews && reviewsConnection) {
     const areMorePosts = reviews.length < reviewsConnection.aggregate.count;
@@ -22,15 +20,13 @@ const Home = ({
             <li className="Home-li" key={`review-${review.id}`}>
               <Link to={`/review/${review.id}`} className="Home-link">
                 <div className="Home-placeholder">
-                  {review.image && (
-                    <img
-                      alt={review.title}
-                      className="Home-img"
-                      src={`https://media.graphcms.com/resize=w:100,h:100,fit:crop/${
-                        review.image.handle
-                      }`}
-                    />
-                  )}
+                  <img
+                    alt={review.title}
+                    className="Home-img"
+                    src={`https://media.graphcms.com/resize=w:100,h:100,fit:crop/${
+                      review.image.handle
+                    }`}
+                  />
                 </div>
                 <h3>{review.title}</h3>
               </Link>

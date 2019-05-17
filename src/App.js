@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from "react";
+import React, { Suspense } from "react";
 
 import {
   BrowserRouter as Router,
@@ -7,7 +7,6 @@ import {
   Redirect
 } from "react-router-dom";
 
-// import auth from "./utils/auth";
 import AuthContext from "./utils/authContext";
 
 import Login from "./pages/Login";
@@ -15,24 +14,21 @@ import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import AdminHome from "./pages/AdminHome";
 
+import Header from "./components/Header";
+
+import useAuth from "./utils/useAuth";
+
 import "./App.css";
 
 const App = () => {
-  const [isAuthenticated, setAuthenticated] = useState(false);
-  const [username, setUsername] = useState();
-  const removeAuth = () => {
-    localStorage.removeItem("loginStatus");
-    setAuthenticated(false);
-  };
+  const [user, setAuth, removeAuth] = useAuth();
 
   return (
     <Router>
       <AuthContext.Provider
         value={{
-          username,
-          setUsername,
-          isAuthenticated,
-          setAuthenticated,
+          user,
+          setAuth,
           removeAuth
         }}
       >
@@ -52,13 +48,14 @@ const MainRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={props => (
       <AuthContext.Consumer>
-        {({ isAuthenticated }) =>
-          !isAuthenticated ? (
+        {({ user }) =>
+          !user.loggedIn ? (
             <Redirect to={{ pathname: "/login" }} />
           ) : (
             <main className="col-md-10 ml-auto p-4">
+              <Header user={user} />
               <Suspense fallback={"Loading"}>
-                <Component {...props} />
+                <Component {...props} user={user} />
               </Suspense>
             </main>
           )
