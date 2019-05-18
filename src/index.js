@@ -11,6 +11,9 @@ import { ApolloProvider } from "react-apollo";
 
 import { Provider as StyletronProvider } from "styletron-react";
 import { Client as Styletron } from "styletron-engine-atomic";
+import { BaseProvider } from "baseui";
+
+import { customTheme } from "./utils/theme";
 
 const GRAPHCMS_API =
   "https://api-apeast.graphcms.com/v1/cjvpjdbsj4vzg01gh8jf34p7o/master";
@@ -25,9 +28,11 @@ const engine = new Styletron();
 ReactDOM.render(
   <ApolloProvider client={client}>
     <StyletronProvider value={engine}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <BaseProvider theme={customTheme}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </BaseProvider>
     </StyletronProvider>
   </ApolloProvider>,
   document.getElementById("root")

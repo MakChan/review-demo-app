@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { Redirect } from "react-router-dom";
 
 import AuthContext from "../utils/authContext";
 
@@ -15,22 +14,13 @@ import { loginSchema } from "../utils/validations";
 
 import Input from "../components/inputs/Input";
 
-const GET_USER = gql`
-  query CustomUser($username: String!) {
-    customUser(where: { username: $username }) {
-      id
-      username
-      password
-      type
-    }
-  }
-`;
+import { GET_USER } from "../utils/queries";
 
-function Login() {
+function Login({ history }) {
   const auth = useContext(AuthContext);
   const [hasError, setHasError] = useState(false);
 
-  if (auth.user.loggedIn) return <Redirect to={{ pathname: "/" }} />;
+  if (auth.user.loggedIn) history.push("/");
   return (
     <ApolloConsumer>
       {client => (

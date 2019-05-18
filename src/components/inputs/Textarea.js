@@ -8,7 +8,7 @@ const BaseInput = ({ label, field, form, ...props }) => {
   };
   return (
     <FormControl label={label} error={form.errors[field.name]}>
-      <Textarea {...field} {...props} onChange={onChange} size={SIZE.compact} />
+      <Textarea {...field} {...props} onChange={onChange} size={SIZE.default} />
     </FormControl>
   );
 };

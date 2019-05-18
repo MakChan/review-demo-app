@@ -14,22 +14,7 @@ import { Formik, Form, Field } from "formik";
 import { signUpSchema } from "../utils/validations";
 import Input from "../components/inputs/Input";
 
-const SIGNUP = gql`
-  mutation createUser($username: String!, $password: String!, $name: String!) {
-    createCustomUser(
-      data: {
-        username: $username
-        name: $name
-        password: $password
-        type: AUTHOR
-      }
-    ) {
-      id
-      username
-      name
-    }
-  }
-`;
+import { SIGNUP } from "../utils/mutations";
 
 function Signup() {
   const auth = useContext(AuthContext);
@@ -39,7 +24,7 @@ function Signup() {
   const handleCompleted = data => {
     auth.setAuth(data.createCustomUser.username, "AUTHOR");
   };
-  
+
   return (
     <Mutation mutation={SIGNUP} onCompleted={handleCompleted}>
       {(createUser, { loading, error }) => (

@@ -1,83 +1,94 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 
-import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
 import { Button } from "baseui/button";
 import { Card, StyledBody } from "baseui/card";
 import { Paragraph1 } from "baseui/typography";
+import Check from "baseui/icon/check";
 
 import { Formik, Form, Field } from "formik";
 import { reviewSchema } from "../utils/validations";
 
 import Input from "../components/inputs/Input";
 import Textarea from "../components/inputs/Textarea";
+import { Block } from "baseui/block";
 
-const ADD_REVIEW = gql`
-  mutation addReview($title: String!, $body: String!, $username: String!) {
-    createReview(
-      data: {
-        title: $title
-        body: $body
-        author: { connect: { username: $username } }
-      }
-    ) {
-      id
-      title
-      body
-      author {
-        username
-      }
-    }
-  }
-`;
+import { ADD_REVIEW } from "../utils/mutations";
 
 function AddReview(props) {
-  const handleCompleted = data => {
-    console.log(data);
-  };
-
   return (
-    <Mutation mutation={ADD_REVIEW} onCompleted={handleCompleted}>
-      {(addReview, { loading, error }) => (
+    <Mutation mutation={ADD_REVIEW}>
+      {(addReview, { loading, error, data }) => (
         <Formik
           initialValues={{
             title: "",
             body: ""
           }}
           validationSchema={reviewSchema}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={values => {
             addReview({
               variables: { ...values, username: props.user.username }
             });
-            setSubmitting(false);
           }}
         >
-          {({ isSubmitting }) => (
-            <>
-              <Form>
-                <Field
-                  label="Title"
-                  name="title"
-                  component={Input}
-                  placeholder="Enter title"
-                />
+          {() => (
+            <Card
+              overrides={{
+                Root: { style: { width: "500px", margin: "50px auto" } }
+              }}
+            >
+              <StyledBody>
+                {data ? (
+                  <Block
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-evenly"
+                  >
+                    <Check
+                      size={36}
+                      overrides={{
+                        Svg: {
+                          style: ({ $theme }) => ({
+                            color: "#fff",
+                            backgroundColor: $theme.colors.positive,
+                            borderRadius: "100%"
+                          })
+                        }
+                      }}
+                    />
+                    <span>
+                      Your review has been added. The admin will soon review it.
+                    </span>
+                  </Block>
+                ) : (
+                  <Form>
+                    <Field
+                      label="Title"
+                      name="title"
+                      component={Input}
+                      placeholder="Enter title"
+                    />
 
-                <Field
-                  label="Content"
-                  name="body"
-                  component={Textarea}
-                  placeholder="Enter content"
-                />
+                    <Field
+                      label="Content"
+                      name="body"
+                      component={Textarea}
+                      placeholder="Enter content"
+                    />
 
-                {error && (
-                  <Paragraph1 color="red">Reviewname exists.</Paragraph1>
+                    {error && (
+                      <Paragraph1 color="red">
+                        Server Error. Try again.
+                      </Paragraph1>
+                    )}
+                    <Button type="submit" isLoading={loading}>
+                      Add
+                    </Button>
+                  </Form>
                 )}
-                <Button type="submit" isLoading={loading}>
-                  Create
-                </Button>
-              </Form>
-            </>
+              </StyledBody>
+            </Card>
           )}
         </Formik>
       )}

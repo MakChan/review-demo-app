@@ -1,23 +1,10 @@
 import React from "react";
 
-import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
 import { Spinner } from "baseui/spinner";
 
-export const GET_REVIEW = gql`
-  query Review($id: ID!) {
-    review(where: { id: $id }) {
-      id
-      title
-      body
-      createdAt
-      image {
-        handle
-      }
-    }
-  }
-`;
+import { GET_REVIEW } from "../utils/queries";
 
 const Review = props => (
   <Query

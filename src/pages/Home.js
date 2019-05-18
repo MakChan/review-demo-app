@@ -1,45 +1,39 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
 
 import { graphql } from "react-apollo";
-import gql from "graphql-tag";
 
-import { Spinner } from "baseui/spinner";
+import { Button } from "baseui/button";
+import { Block } from "baseui/block";
+import { styled } from "baseui";
+import { Label2, H6, Paragraph2, Caption2, Label1 } from "baseui/typography";
+
+import Review from "../components/Review";
+import Loader from "../components/Loader";
+
+import { PUBLISHED_REVIEWS } from "../utils/queries";
+
+const Section = styled("section", {
+  padding: "1rem"
+});
 
 const REVIEWS_PER_PAGE = 10;
 
 const Home = ({
-  data: { loading, error, reviews, reviewsConnection, networkStatus },
+  data: { loading, error, reviews, reviewsConnection },
   loadMorePosts,
-  user
+  user,
+  history
 }) => {
-  if (user.role === "ADMIN") return <Redirect to={{ pathname: "/admin" }} />;
   if (error) return <h1>Error fetching reviews!</h1>;
   if (reviews && reviewsConnection) {
     const areMorePosts = reviews.length < reviewsConnection.aggregate.count;
     return (
-      <section>
-        <Link to="/review/add">Add Review</Link>
-        <ul className="Home-ul">
+      <Section>
+        <Block margin="20px auto" maxWidth="800px">
           {reviews.map(review => (
-            <li className="Home-li" key={`review-${review.id}`}>
-              <Link to={`/review/${review.id}`} className="Home-link">
-                <div className="Home-placeholder">
-                  {review.image && (
-                    <img
-                      alt={review.title}
-                      className="Home-img"
-                      src={`https://media.graphcms.com/resize=w:100,h:100,fit:crop/${
-                        review.image.handle
-                      }`}
-                    />
-                  )}
-                </div>
-                <h3>{review.title}</h3>
-              </Link>
-            </li>
+            <Review review={review} key={`review-${review.id}`} />
           ))}
-        </ul>
+        </Block>
         <div className="Home-showMoreWrapper">
           {areMorePosts ? (
             <button
@@ -53,38 +47,18 @@ const Home = ({
             ""
           )}
         </div>
-      </section>
+      </Section>
     );
   }
-  return <Spinner />;
+  return <Loader />;
 };
-export const reviews = gql`
-  query reviews {
-    reviews(orderBy: createdAt_DESC) {
-      id
-      title
-      body
-      createdAt
-      image {
-        handle
-      }
-      author {
-        username
-      }
-    }
-    reviewsConnection {
-      aggregate {
-        count
-      }
-    }
-  }
-`;
+
 export const reviewsQueryVars = {
   skip: 0,
   first: REVIEWS_PER_PAGE
 };
 
-export default graphql(reviews, {
+export default graphql(PUBLISHED_REVIEWS, {
   options: {
     variables: reviewsQueryVars
   },
