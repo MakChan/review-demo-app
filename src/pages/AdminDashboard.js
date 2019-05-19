@@ -5,18 +5,17 @@ import { graphql } from "react-apollo";
 import { Button, KIND } from "baseui/button";
 import { Block } from "baseui/block";
 import { styled } from "baseui";
-import {  H6} from "baseui/typography";
+import { H6, H5 } from "baseui/typography";
 
 import ReviewWithActions from "../components/ReviewWithActions";
 import Loader from "../components/Loader";
 
 import { PENDING_REVIEWS } from "../utils/queries";
+import { REVIEWS_PER_PAGE } from "../utils/constants";
 
 const Section = styled("section", {
   padding: "1rem"
 });
-
-const REVIEWS_PER_PAGE = 2;
 
 const AdminDashboard = ({
   data: { loading, error, reviews, reviewsConnection },
@@ -25,8 +24,12 @@ const AdminDashboard = ({
   history
 }) => {
   if (user.role !== "ADMIN") return history.push("/dashboard");
-  if (error) return <h1>Error fetching reviews!</h1>;
+  if (error)
+    return <H5 style={{ textAlign: "center" }}>Error fetching reviews!</H5>;
+
   if (reviews && reviewsConnection) {
+    if (reviewsConnection.aggregate.count === 0)
+      return <H5 style={{ textAlign: "center" }}>No pending reviews</H5>;
     const areMorePosts = reviews.length < reviewsConnection.aggregate.count;
     return (
       <Section>

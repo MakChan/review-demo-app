@@ -11,12 +11,11 @@ import Review from "../components/Review";
 import Loader from "../components/Loader";
 
 import { CURRENT_USER_REVIEWS } from "../utils/queries";
+import { REVIEWS_PER_PAGE } from "../utils/constants";
 
 const Section = styled("section", {
   padding: "1rem"
 });
-
-const REVIEWS_PER_PAGE = 3;
 
 const ReviewerDashboard = ({ user, history }) => {
   if (user.role === "ADMIN") history.push("/admin");

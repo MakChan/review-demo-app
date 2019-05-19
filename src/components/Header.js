@@ -26,7 +26,9 @@ const Header = ({ history }) => {
     <HeaderNavigation>
       <NavigationList align={ALIGN.left}>
         <NavigationItem>
-          <Link to="/">Review App</Link>
+          <Link to="/">
+            <Avatar name="Review App" size="scale900" src="" />
+          </Link>
         </NavigationItem>
       </NavigationList>
       <NavigationList align={ALIGN.center} />

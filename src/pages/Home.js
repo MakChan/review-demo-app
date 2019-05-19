@@ -5,18 +5,17 @@ import { graphql } from "react-apollo";
 import { Button, KIND } from "baseui/button";
 import { Block } from "baseui/block";
 import { styled } from "baseui";
-import { Label2, H6, Paragraph2, Caption2, Label1 } from "baseui/typography";
+// import { Label2, H6, Paragraph2, Caption2, Label1 } from "baseui/typography";
 
 import Review from "../components/Review";
 import Loader from "../components/Loader";
 
 import { PUBLISHED_REVIEWS } from "../utils/queries";
+import { REVIEWS_PER_PAGE } from "../utils/constants";
 
 const Section = styled("section", {
   padding: "1rem"
 });
-
-const REVIEWS_PER_PAGE = 2;
 
 const Home = ({
   data: { loading, error, reviews, reviewsConnection },

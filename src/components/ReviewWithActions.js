@@ -1,6 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
+import React, { useState } from "react";
 import { Mutation } from "react-apollo";
 
 import TimeAgo from "react-timeago";
@@ -12,22 +10,27 @@ import { Label2, H6, Paragraph2, Paragraph1 } from "baseui/typography";
 
 import { UPDATE_REVIEW } from "../utils/mutations";
 
-const Li = styled("div", ({ $theme }) => ({
+const BLock = styled("div", ({ $theme }) => ({
   backgroundColor: $theme.colors.mono200,
   padding: $theme.sizing.scale400,
   marginBottom: $theme.sizing.scale600,
   border: $theme.borders.border400
 }));
 
-
 function ReviewWithActions({ review }) {
+  const [actionType, setAction] = useState("");
+
+  const handleUpdateReview = (updateReview, type) => {
+    setAction(type);
+    updateReview({
+      variables: { id: review.id, status: type }
+    });
+  };
   return (
-    <Mutation mutation={UPDATE_REVIEW}>
-      {updateReview => (
-        <Li>
-          <H6 margin="0">
-            <Link to={`/review/${review.id}`}>{review.title}</Link>
-          </H6>
+    <Mutation mutation={UPDATE_REVIEW} notifyOnNetworkStatusChange={true}>
+      {(updateReview, { loading, error, data }) => (
+        <BLock>
+          <H6 margin="0">{review.title}</H6>
           <Label2 margin="8px 0">
             <Avatar
               name={review.author.username}
@@ -48,26 +51,23 @@ function ReviewWithActions({ review }) {
           <Button
             kind={KIND.primary}
             type="button"
-            onClick={() =>
-              updateReview({
-                variables: { id: review.id, status: "PUBLISHED" }
-              })
-            }
+            disabled={data}
+            isLoading={loading && actionType == "PUBLISHED"}
+            onClick={() => handleUpdateReview(updateReview, "PUBLISHED")}
           >
-            Approve
+            {data && actionType == "PUBLISHED" ? "Approved" : "Approve"}
           </Button>
           <Button
             kind={KIND.secondary}
             type="button"
-            onClick={() =>
-              updateReview({
-                variables: { id: review.id, status: "ARCHIVED" }
-              })
-            }
+            disabled={data}
+            isLoading={loading && actionType == "ARCHIVED"}
+            style={{ marginLeft: "10px" }}
+            onClick={() => handleUpdateReview(updateReview, "ARCHIVED")}
           >
-            Reject
+            {data && actionType == "ARCHIVED" ? "Rejected" : "Reject"}
           </Button>
-        </Li>
+        </BLock>
       )}
     </Mutation>
   );
