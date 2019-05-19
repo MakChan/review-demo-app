@@ -19,6 +19,20 @@ export const ADD_REVIEW = gql`
   }
 `;
 
+export const UPDATE_REVIEW = gql`
+  mutation updateReview($id: ID!, $status: Status!) {
+    updateReview(where: { id: $id }, data: { status: $status }) {
+      id
+      title
+      body
+      status
+      author {
+        username
+      }
+    }
+  }
+`;
+
 export const SIGNUP = gql`
   mutation createUser($username: String!, $password: String!, $name: String!) {
     createCustomUser(

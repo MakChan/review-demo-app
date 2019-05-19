@@ -2,25 +2,25 @@ import React from "react";
 
 import { graphql } from "react-apollo";
 
-import { Spinner } from "baseui/spinner";
-import { Button } from "baseui/button";
+import { Button, KIND } from "baseui/button";
 import { Block } from "baseui/block";
 import { styled } from "baseui";
-import { Label2, H6, Paragraph2, Caption2, Label1 } from "baseui/typography";
+import {  H6} from "baseui/typography";
 
-import Review from "../components/Review";
+import ReviewWithActions from "../components/ReviewWithActions";
+import Loader from "../components/Loader";
 
-import { PUBLISHED_REVIEWS, ALL_REVIEWS } from "../utils/queries";
+import { PENDING_REVIEWS } from "../utils/queries";
 
 const Section = styled("section", {
   padding: "1rem"
 });
 
-const REVIEWS_PER_PAGE = 10;
+const REVIEWS_PER_PAGE = 2;
 
-const Home = ({
+const AdminDashboard = ({
   data: { loading, error, reviews, reviewsConnection },
-  loadMorePosts,
+  loadMore,
   user,
   history
 }) => {
@@ -32,47 +32,44 @@ const Home = ({
       <Section>
         <Block margin="0px auto" maxWidth="800px">
           <Block display="flex" justifyContent="space-between" margin="20px 0">
-            <H6 margin="0">Your Reviews</H6>
-            <Button type="button" onClick={() => history.push("/review/add")}>
-              Add Review
-            </Button>
+            <H6 margin="0">Pending Reviews</H6>
           </Block>
 
           {reviews.map(review => (
-            <Review review={review} key={`review-${review.id}`} />
+            <ReviewWithActions review={review} key={`review-${review.id}`} />
           ))}
         </Block>
-        <div className="Home-showMoreWrapper">
-          {areMorePosts ? (
-            <button
-              className="Home-button"
-              disabled={loading}
-              onClick={() => loadMorePosts()}
+        <div style={{ textAlign: "center" }}>
+          {areMorePosts && (
+            <Button
+              kind={KIND.secondary}
+              type="button"
+              isLoading={loading}
+              onClick={() => loadMore()}
             >
-              {loading ? "Loading..." : "Show More Posts"}
-            </button>
-          ) : (
-            ""
+              Show More Posts
+            </Button>
           )}
         </div>
       </Section>
     );
   }
-  return <Spinner />;
+  return <Loader />;
 };
 
-export const reviewsQueryVars = {
+export const queryVars = {
   skip: 0,
   first: REVIEWS_PER_PAGE
 };
 
-export default graphql(ALL_REVIEWS, {
+export default graphql(PENDING_REVIEWS, {
   options: {
-    variables: reviewsQueryVars
+    variables: queryVars,
+    notifyOnNetworkStatusChange: true
   },
   props: ({ data }) => ({
     data,
-    loadMorePosts: () => {
+    loadMore: () => {
       return data.fetchMore({
         variables: {
           skip: data.reviews.length
@@ -88,4 +85,4 @@ export default graphql(ALL_REVIEWS, {
       });
     }
   })
-})(Home);
+})(AdminDashboard);

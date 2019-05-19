@@ -10,7 +10,7 @@ import { Label2, H6, Paragraph2, Paragraph1 } from "baseui/typography";
 const Li = styled("div", ({ $theme }) => ({
   backgroundColor: $theme.colors.mono200,
   padding: $theme.sizing.scale400,
-  margin: $theme.sizing.scale600,
+  marginBottom: $theme.sizing.scale600,
   border: $theme.borders.border400
   //   boxShadow: $theme.lighting.shadow400,
   //   display: "flex",
@@ -21,9 +21,7 @@ function Review({ review }) {
   return (
     <Li>
       <H6 margin="0">
-        <Link to={`/review/${review.id}`} className="Home-link">
-          {review.title}
-        </Link>
+        <Link to={`/review/${review.id}`}>{review.title}</Link>
       </H6>
       <Label2 margin="8px 0">
         <Avatar

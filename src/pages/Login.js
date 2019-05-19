@@ -31,7 +31,6 @@ function Login({ history }) {
           }}
           validationSchema={loginSchema}
           onSubmit={(values, { setSubmitting }) => {
-            console.log("SUBMITTED");
             setHasError(false);
 
             client

@@ -1,9 +1,7 @@
-import React, { useContext, useState } from "react";
-import { Redirect } from "react-router-dom";
+import React, { useContext } from "react";
 
 import AuthContext from "../utils/authContext";
 
-import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
 import { Button } from "baseui/button";
@@ -16,10 +14,10 @@ import Input from "../components/inputs/Input";
 
 import { SIGNUP } from "../utils/mutations";
 
-function Signup() {
+function Signup({ history }) {
   const auth = useContext(AuthContext);
 
-  if (auth.user.loggedIn) return <Redirect to={{ pathname: "/" }} />;
+  if (auth.user.loggedIn) history.push("/");
 
   const handleCompleted = data => {
     auth.setAuth(data.createCustomUser.username, "AUTHOR");
@@ -35,12 +33,11 @@ function Signup() {
             mame: ""
           }}
           validationSchema={signUpSchema}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={values => {
             createUser({ variables: { ...values } });
-            setSubmitting(false);
           }}
         >
-          {({ isSubmitting }) => (
+          {() => (
             <Card
               overrides={{
                 Root: { style: { width: "328px", margin: "50px auto" } }

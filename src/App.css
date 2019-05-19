@@ -1,9 +1,5 @@
 @import-normalize;
 
 body {
-  margin:0;
-}
-
-.Home-ul {
-  list-style-type: none
+  margin: 0;
 }
