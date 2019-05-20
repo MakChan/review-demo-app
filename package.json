@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "apollo-client": "^2.5.1",
     "baseui": "^6.18.0",
     "filestack-react": "^2.0.6",
     "final-form": "^4.13.0",
     "formik": "^1.5.4",
+    "graphql": "^14.3.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-final-form": "^5.1.0",

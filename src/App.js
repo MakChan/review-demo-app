@@ -1,17 +1,12 @@
-import React, { Suspense } from "react";
+import React, { Suspense, lazy } from "react";
 
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import AuthContext from "./utils/authContext";
 import ThemeContext from "./utils/themeContext";
 
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import Home from "./pages/Home";
-import AdminDashboard from "./pages/AdminDashboard";
-import ReviewerDashboard from "./pages/ReviewerDashboard";
 import Review from "./pages/Review";
-import AddReview from "./pages/AddReview";
 
 import Header from "./components/Header";
 import Loader from "./components/Loader";
@@ -23,7 +18,12 @@ import useTheme from "./utils/useTheme";
 import { BaseProvider } from "baseui";
 import { LightTheme, DarkTheme } from "./utils/theme";
 
-import "./App.css";
+const Login = lazy(() => import("./pages/Login"));
+const Signup = lazy(() => import("./pages/Signup"));
+
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const ReviewerDashboard = lazy(() => import("./pages/ReviewerDashboard"));
+const AddReview = lazy(() => import("./pages/AddReview"));
 
 const App = () => {
   const [user, loaded, setAuth, removeAuth] = useAuth();
