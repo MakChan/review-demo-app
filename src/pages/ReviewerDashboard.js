@@ -5,7 +5,7 @@ import { Query } from "react-apollo";
 import { Button, KIND } from "baseui/button";
 import { Block } from "baseui/block";
 import { styled } from "baseui";
-import { H6, H5 } from "baseui/typography";
+import { H5, H6 } from "baseui/typography";
 
 import Review from "../components/Review";
 import Loader from "../components/Loader";
@@ -38,7 +38,20 @@ const ReviewerDashboard = ({ user, history }) => {
       }) => {
         if (error) return <h1>Error fetching reviews!</h1>;
 
-        if (reviews && reviewsConnection)
+        if (reviews && reviewsConnection) {
+          if (reviewsConnection.aggregate.count === 0)
+            return (
+              <Block style={{textAlign: "center"}} > 
+                <H6 >No reviews yet.</H6>
+
+                <Button
+                  type="button"
+                  onClick={() => history.push("/review/add")}
+                >
+                  Add Review
+                </Button>
+              </Block>
+            );
           return (
             <Section>
               <Block margin="0px auto" maxWidth="800px">
@@ -95,6 +108,7 @@ const ReviewerDashboard = ({ user, history }) => {
               </div>
             </Section>
           );
+        }
         return <Loader />;
       }}
     </Query>

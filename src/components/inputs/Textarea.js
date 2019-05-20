@@ -7,7 +7,7 @@ const BaseInput = ({ label, field, form, ...props }) => {
     form.setFieldValue(field.name, event.target.value);
   };
   return (
-    <FormControl label={label} error={form.errors[field.name]}>
+    <FormControl label={label}>
       <Textarea {...field} {...props} onChange={onChange} size={SIZE.default} />
     </FormControl>
   );

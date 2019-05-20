@@ -40,7 +40,7 @@ function Login({ history }) {
                 fetchPolicy: "no-cache"
               })
               .then(data => {
-                if (data.data.customUser.password == values.password)
+                if (data.data.customUser.password === values.password)
                   auth.setAuth(values.username, data.data.customUser.type);
                 else setHasError(true);
                 setSubmitting(false);

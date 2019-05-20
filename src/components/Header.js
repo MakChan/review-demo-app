@@ -39,13 +39,13 @@ const Header = ({ history }) => {
       <NavigationList align={ALIGN.center} />
       <NavigationList align={ALIGN.right} style={{ paddingRight: "24px" }}>
         <NavigationItem>
-          <Button shape={SHAPE.square} onClick={theme.toggleTheme}>
+          <Button shape={SHAPE.square} onClick={theme.toggleTheme} aria-label="Toggle Theme">
             <MdLightbulbOutline />
           </Button>
         </NavigationItem>
         {auth.user.loggedIn ? (
           <>
-            {auth.user.role == "ADMIN" ? (
+            {auth.user.role === "ADMIN" ? (
               <NavigationItem>
                 <Button
                   onClick={() => {

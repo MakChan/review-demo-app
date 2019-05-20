@@ -13,6 +13,8 @@ import { reviewSchema } from "../utils/validations";
 
 import Input from "../components/inputs/Input";
 import Textarea from "../components/inputs/Textarea";
+import StarRating from "../components/inputs/StarRating";
+
 import Card from "../components/Card";
 
 // import { FileUploader } from "baseui/file-uploader";
@@ -41,7 +43,8 @@ function AddReview(props) {
         <Formik
           initialValues={{
             title: "",
-            body: ""
+            body: "",
+            rating: ""
           }}
           validationSchema={reviewSchema}
           onSubmit={values => {
@@ -50,7 +53,7 @@ function AddReview(props) {
             });
           }}
         >
-          {() => (
+          {({ isValid,errors }) => (
             <Card>
               <StyledBody>
                 {data ? (
@@ -71,12 +74,14 @@ function AddReview(props) {
                         }
                       }}
                     />
-                    <span>
+                    <span style={{ paddingLeft: 10 }}>
                       Your review has been added. The admin will soon review it.
                     </span>
                   </Block>
                 ) : (
                   <Form>
+                    <Field label="Rate" name="rating" component={StarRating} />
+
                     <Field
                       label="Title"
                       name="title"
@@ -110,7 +115,11 @@ function AddReview(props) {
                         Server Error. Try again.
                       </Paragraph1>
                     )}
-                    <Button type="submit" isLoading={loading}>
+                    <Button
+                      type="submit"
+                      isLoading={loading}
+                      disabled={!isValid}
+                    >
                       Add
                     </Button>
                   </Form>

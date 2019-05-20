@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "baseui/card";
 
-const StyledCard = props => (
+const StyledCard = ({ children, style, ...restProps }) => (
   <Card
     overrides={{
       Root: {
@@ -11,12 +11,14 @@ const StyledCard = props => (
           top: "50px",
           position: "relative",
           borderColor: "transparent",
-          boxShadow: "0 0 40px rgba(0,0,0,.08)" //0 0 40px rgba(204, 0, 255, 0.08)
+          boxShadow: "0 0 40px rgba(0,0,0,.08)", //0 0 40px rgba(204, 0, 255, 0.08)
+          ...style
         }
       }
     }}
+    {...restProps}
   >
-    {props.children}
+    {children}
   </Card>
 );
 

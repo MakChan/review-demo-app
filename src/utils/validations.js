@@ -19,6 +19,7 @@ export const loginSchema = object().shape({
 });
 
 export const reviewSchema = object().shape({
-  title: string()
-    .required("Enter title")
+  title: string().required("Enter title"),
+  body: string().required("Enter content"),
+  rating: string().required("Enter rating")
 });

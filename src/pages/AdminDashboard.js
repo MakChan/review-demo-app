@@ -5,7 +5,7 @@ import { graphql } from "react-apollo";
 import { Button, KIND } from "baseui/button";
 import { Block } from "baseui/block";
 import { styled } from "baseui";
-import { H6, H5 } from "baseui/typography";
+import { H5 } from "baseui/typography";
 
 import ReviewWithActions from "../components/ReviewWithActions";
 import Loader from "../components/Loader";
@@ -48,7 +48,7 @@ const AdminDashboard = ({
               kind={KIND.secondary}
               type="button"
               isLoading={loading}
-              onClick={() => loadMore()}
+              onClick={loadMore}
             >
               Show More Posts
             </Button>

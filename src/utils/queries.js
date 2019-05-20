@@ -13,10 +13,15 @@ export const PUBLISHED_REVIEWS = gql`
       body
       createdAt
       status
+      viewCount
+      rating
       image {
         handle
       }
       author {
+        username
+      }
+      likedUsers {
         username
       }
     }
@@ -34,17 +39,22 @@ export const CURRENT_USER_REVIEWS = gql`
       orderBy: createdAt_DESC
       first: $first
       skip: $skip
-      where: { author: { username: $username } }
+      where: { author: { username: $username }, status_not: ARCHIVED }
     ) {
       id
       title
       body
       createdAt
       status
+      viewCount
+      rating
       image {
         handle
       }
       author {
+        username
+      }
+      likedUsers {
         username
       }
     }
@@ -64,10 +74,15 @@ export const ALL_REVIEWS = gql`
       body
       createdAt
       status
+      viewCount
+      rating
       image {
         handle
       }
       author {
+        username
+      }
+      likedUsers {
         username
       }
     }
@@ -91,6 +106,7 @@ export const PENDING_REVIEWS = gql`
       body
       createdAt
       status
+      rating
       image {
         handle
       }
@@ -123,8 +139,16 @@ export const GET_REVIEW = gql`
       title
       body
       createdAt
+      viewCount
+      rating
       image {
         handle
+      }
+      author {
+        username
+      }
+      likedUsers {
+        username
       }
     }
   }
