@@ -2,7 +2,7 @@ import { createTheme, lightThemePrimitives } from "baseui";
 import { primitives as darkThemePrimitives } from "baseui/themes/dark-theme-primitives";
 import colors from "baseui/themes/dark-theme-colors.js";
 
-const customColors = {
+export const customColors = {
   primary: "#f7f1ff",
   primary50: "#e6d6ff",
   primary100: "#d0b0ff",

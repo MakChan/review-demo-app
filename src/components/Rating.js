@@ -1,5 +1,5 @@
 import React from "react";
-import { Tag, KIND, VARIANT } from "baseui/tag";
+import { Tag } from "baseui/tag";
 
 import { MdStar } from "react-icons/md";
 
