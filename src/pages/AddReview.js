@@ -17,26 +17,9 @@ import StarRating from "../components/inputs/StarRating";
 
 import Card from "../components/Card";
 
-// import { FileUploader } from "baseui/file-uploader";
-// import ReactFilestack from "filestack-react";
-
 import { ADD_REVIEW } from "../utils/mutations";
 
-// const options = {
-//   accept: "image/*",
-//   maxFiles: 1,
-//   storeTo: {
-//     location: "s3"
-//   }
-// };
-
 function AddReview(props) {
-  // const handleImageSuccess = vars => {
-  //   console.log(vars);
-  // };
-  // const handleImageError = vars => {
-  //   console.log(vars);
-  // };
   return (
     <Mutation mutation={ADD_REVIEW}>
       {(addReview, { loading, error, data }) => (
@@ -53,7 +36,7 @@ function AddReview(props) {
             });
           }}
         >
-          {({ isValid,errors }) => (
+          {({ isValid, errors }) => (
             <Card>
               <StyledBody>
                 {data ? (
@@ -95,21 +78,6 @@ function AddReview(props) {
                       component={Textarea}
                       placeholder="Enter content"
                     />
-                    {/* <ReactFilestack
-                      apikey={process.env.REACT_APP_GRAPHCMS_API_URL}
-                      options={options}
-                      onSuccess={handleImageSuccess}
-                      onError={handleImageError}
-                      // preload={true}
-                      mode="upload"
-                      render={({ onPick }) => <FileUploader />}
-                      // render={({ onPick }) => (
-                      //   <div>
-                      //     <strong>Find an avatar</strong>
-                      //     <button onClick={onPick}>Pick</button>
-                      //   </div>
-                      // )}
-                    /> */}
                     {error && (
                       <Paragraph1 color="red">
                         Server Error. Try again.
