@@ -35,7 +35,7 @@ const AdminDashboard = ({
       <Section>
         <Block margin="0px auto" maxWidth="800px">
           <Block display="flex" justifyContent="space-between" margin="20px 0">
-            <H6 margin="0">Pending Reviews</H6>
+            <H5 margin="0">Pending Reviews</H5>
           </Block>
 
           {reviews.map(review => (

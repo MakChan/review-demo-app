@@ -4,26 +4,25 @@ import TimeAgo from "react-timeago";
 
 import { Avatar } from "baseui/avatar";
 import { Label2, H6, Paragraph2, Paragraph1 } from "baseui/typography";
-import { Card, StyledBody } from "baseui/card";
+import { Card } from "baseui/card";
 
-function Review({ review }) {
+function Review({ review, children, showStatus }) {
   return (
     <Card
-      // title={`review.title ${review.status === "DRAFT" ? " (Pending)" : null}`}
       overrides={{
         Root: {
           style: ({ $theme }) => ({
+            borderColor: "transparent",
             marginBottom: $theme.sizing.scale900,
             borderRadius: $theme.borders.radius200,
-            boxShadow: $theme.lighting.shadow500,
-            opacity: review.status === "DRAFT" ? 0.7 : 1
+            boxShadow: "0 0 40px rgba(0,0,0,.08)",
+            opacity: showStatus && review.status === "DRAFT" ? 0.7 : 1
           })
         }
       }}
     >
-      {/* <StyledBody> */}
       <H6 margin="0">
-        {review.title} {review.status === "DRAFT" && " (Pending)"}
+        {review.title} {showStatus && review.status === "DRAFT" && " (Pending)"}
       </H6>
       <Label2 margin="8px 0">
         <Avatar
@@ -42,7 +41,7 @@ function Review({ review }) {
         <TimeAgo date={review.createdAt} />
       </Paragraph1>
       <Paragraph2 margin="8px 0">{review.body}</Paragraph2>
-      {/* </StyledBody> */}
+      {children}
     </Card>
   );
 }

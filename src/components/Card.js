@@ -9,7 +9,9 @@ const StyledCard = props => (
           maxWidth: "450px",
           margin: "0 auto",
           top: "50px",
-          position: "relative"
+          position: "relative",
+          borderColor: "transparent",
+          boxShadow: "0 0 40px rgba(0,0,0,.08)" //0 0 40px rgba(204, 0, 255, 0.08)
         }
       }
     }}

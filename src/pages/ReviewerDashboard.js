@@ -5,7 +5,7 @@ import { Query } from "react-apollo";
 import { Button, KIND } from "baseui/button";
 import { Block } from "baseui/block";
 import { styled } from "baseui";
-import { H6 } from "baseui/typography";
+import { H6, H5 } from "baseui/typography";
 
 import Review from "../components/Review";
 import Loader from "../components/Loader";
@@ -47,7 +47,7 @@ const ReviewerDashboard = ({ user, history }) => {
                   justifyContent="space-between"
                   margin="20px 0"
                 >
-                  <H6 margin="0">Your Reviews</H6>
+                  <H5 margin="0">Your Reviews</H5>
                   <Button
                     type="button"
                     onClick={() => history.push("/review/add")}
@@ -57,7 +57,11 @@ const ReviewerDashboard = ({ user, history }) => {
                 </Block>
 
                 {reviews.map(review => (
-                  <Review review={review} key={`review-${review.id}`} />
+                  <Review
+                    review={review}
+                    key={`review-${review.id}`}
+                    showStatus
+                  />
                 ))}
               </Block>
               <div style={{ textAlign: "center" }}>

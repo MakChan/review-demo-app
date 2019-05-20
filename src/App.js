@@ -20,7 +20,8 @@ import Block from "./components/Block";
 import useAuth from "./utils/useAuth";
 import useTheme from "./utils/useTheme";
 
-import { BaseProvider, DarkTheme, LightTheme } from "baseui";
+import { BaseProvider } from "baseui";
+import { LightTheme, DarkTheme } from "./utils/theme";
 
 import "./App.css";
 
