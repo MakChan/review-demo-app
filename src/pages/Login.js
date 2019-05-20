@@ -2,17 +2,17 @@ import React, { useContext, useState } from "react";
 
 import AuthContext from "../utils/authContext";
 
-import gql from "graphql-tag";
 import { ApolloConsumer } from "react-apollo";
 
 import { Button } from "baseui/button";
-import { Card, StyledBody } from "baseui/card";
+import { StyledBody } from "baseui/card";
 import { Paragraph1 } from "baseui/typography";
 
 import { Formik, Form, Field } from "formik";
 import { loginSchema } from "../utils/validations";
 
 import Input from "../components/inputs/Input";
+import Card from "../components/Card";
 
 import { GET_USER } from "../utils/queries";
 
@@ -52,11 +52,7 @@ function Login({ history }) {
           }}
         >
           {({ isSubmitting }) => (
-            <Card
-              overrides={{
-                Root: { style: { width: "328px", margin: "50px auto" } }
-              }}
-            >
+            <Card>
               <StyledBody>
                 <h1>Log In</h1>
                 <Form>

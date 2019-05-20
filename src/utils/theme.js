@@ -1,6 +1,6 @@
 import { createTheme, lightThemePrimitives } from "baseui";
 
-export const customTheme = createTheme(
+export const LightTheme = createTheme(
   {
     ...lightThemePrimitives,
     primary50: "#EDF3FE",

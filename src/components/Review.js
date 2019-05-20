@@ -2,21 +2,26 @@ import React from "react";
 
 import TimeAgo from "react-timeago";
 
-import { styled } from "baseui";
 import { Avatar } from "baseui/avatar";
 import { Label2, H6, Paragraph2, Paragraph1 } from "baseui/typography";
-
-const Block = styled("div", ({ $theme, $status }) => ({
-  backgroundColor: $theme.colors.mono200,
-  padding: $theme.sizing.scale400,
-  marginBottom: $theme.sizing.scale600,
-  border: $theme.borders.border400,
-  opacity: $status === "DRAFT" ? 0.7 : 1
-}));
+import { Card, StyledBody } from "baseui/card";
 
 function Review({ review }) {
   return (
-    <Block $status={review.status}>
+    <Card
+      // title={`review.title ${review.status === "DRAFT" ? " (Pending)" : null}`}
+      overrides={{
+        Root: {
+          style: ({ $theme }) => ({
+            marginBottom: $theme.sizing.scale900,
+            borderRadius: $theme.borders.radius200,
+            boxShadow: $theme.lighting.shadow500,
+            opacity: review.status === "DRAFT" ? 0.7 : 1
+          })
+        }
+      }}
+    >
+      {/* <StyledBody> */}
       <H6 margin="0">
         {review.title} {review.status === "DRAFT" && " (Pending)"}
       </H6>
@@ -37,7 +42,8 @@ function Review({ review }) {
         <TimeAgo date={review.createdAt} />
       </Paragraph1>
       <Paragraph2 margin="8px 0">{review.body}</Paragraph2>
-    </Block>
+      {/* </StyledBody> */}
+    </Card>
   );
 }
 export default Review;

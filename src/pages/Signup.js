@@ -5,12 +5,14 @@ import AuthContext from "../utils/authContext";
 import { Mutation } from "react-apollo";
 
 import { Button } from "baseui/button";
-import { Card, StyledBody } from "baseui/card";
+import { StyledBody } from "baseui/card";
 import { Paragraph1 } from "baseui/typography";
 
 import { Formik, Form, Field } from "formik";
 import { signUpSchema } from "../utils/validations";
+
 import Input from "../components/inputs/Input";
+import Card from "../components/Card";
 
 import { SIGNUP } from "../utils/mutations";
 
@@ -38,11 +40,7 @@ function Signup({ history }) {
           }}
         >
           {() => (
-            <Card
-              overrides={{
-                Root: { style: { width: "328px", margin: "50px auto" } }
-              }}
-            >
+            <Card>
               <StyledBody>
                 <h1>Sign up</h1>
                 <Form>

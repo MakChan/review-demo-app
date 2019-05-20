@@ -4,11 +4,13 @@
   "private": true,
   "dependencies": {
     "baseui": "^6.18.0",
+    "filestack-react": "^2.0.6",
     "final-form": "^4.13.0",
     "formik": "^1.5.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-final-form": "^5.1.0",
+    "react-icons": "^3.7.0",
     "react-router-dom": "^4.4.0-beta.8",
     "react-scripts": "3.0.1",
     "react-timeago": "^4.4.0",

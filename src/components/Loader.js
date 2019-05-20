@@ -5,7 +5,12 @@ export default Loader => (
   <Spinner
     overrides={{
       Svg: {
-        style: { margin: "20px auto", display: "block" }
+        style: {
+          margin: "0 auto",
+          display: "block",
+          top: "20px",
+          position: "relative"
+        }
       }
     }}
   />

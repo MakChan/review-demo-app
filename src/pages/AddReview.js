@@ -3,8 +3,9 @@ import React from "react";
 import { Mutation } from "react-apollo";
 
 import { Button } from "baseui/button";
-import { Card, StyledBody } from "baseui/card";
+import { StyledBody } from "baseui/card";
 import { Paragraph1 } from "baseui/typography";
+import { Block } from "baseui/block";
 import Check from "baseui/icon/check";
 
 import { Formik, Form, Field } from "formik";
@@ -12,11 +13,28 @@ import { reviewSchema } from "../utils/validations";
 
 import Input from "../components/inputs/Input";
 import Textarea from "../components/inputs/Textarea";
-import { Block } from "baseui/block";
+import Card from "../components/Card";
+
+// import { FileUploader } from "baseui/file-uploader";
+// import ReactFilestack from "filestack-react";
 
 import { ADD_REVIEW } from "../utils/mutations";
 
+// const options = {
+//   accept: "image/*",
+//   maxFiles: 1,
+//   storeTo: {
+//     location: "s3"
+//   }
+// };
+
 function AddReview(props) {
+  // const handleImageSuccess = vars => {
+  //   console.log(vars);
+  // };
+  // const handleImageError = vars => {
+  //   console.log(vars);
+  // };
   return (
     <Mutation mutation={ADD_REVIEW}>
       {(addReview, { loading, error, data }) => (
@@ -33,11 +51,7 @@ function AddReview(props) {
           }}
         >
           {() => (
-            <Card
-              overrides={{
-                Root: { style: { width: "500px", margin: "50px auto" } }
-              }}
-            >
+            <Card>
               <StyledBody>
                 {data ? (
                   <Block
@@ -76,7 +90,21 @@ function AddReview(props) {
                       component={Textarea}
                       placeholder="Enter content"
                     />
-
+                    {/* <ReactFilestack
+                      apikey={process.env.REACT_APP_GRAPHCMS_API_URL}
+                      options={options}
+                      onSuccess={handleImageSuccess}
+                      onError={handleImageError}
+                      // preload={true}
+                      mode="upload"
+                      render={({ onPick }) => <FileUploader />}
+                      // render={({ onPick }) => (
+                      //   <div>
+                      //     <strong>Find an avatar</strong>
+                      //     <button onClick={onPick}>Pick</button>
+                      //   </div>
+                      // )}
+                    /> */}
                     {error && (
                       <Paragraph1 color="red">
                         Server Error. Try again.

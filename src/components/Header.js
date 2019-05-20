@@ -8,7 +8,7 @@ import {
   StyledNavigationItem as NavigationItem,
   StyledNavigationList as NavigationList
 } from "baseui/header-navigation";
-import { Button, KIND } from "baseui/button";
+import { Button, KIND, SHAPE } from "baseui/button";
 
 import TriangleDown from "baseui/icon/triangle-down";
 import { StatefulPopover, PLACEMENT } from "baseui/popover";
@@ -16,11 +16,16 @@ import { StatefulMenu } from "baseui/menu";
 import { Avatar } from "baseui/avatar";
 
 import AuthContext from "../utils/authContext";
+import ThemeContext from "../utils/themeContext";
+
+import { MdLightbulbOutline } from "react-icons/md";
 
 const ITEMS = [{ label: "Log out" }];
 
+
 const Header = ({ history }) => {
   const auth = useContext(AuthContext);
+  const theme = useContext(ThemeContext);
 
   return (
     <HeaderNavigation>
@@ -33,6 +38,11 @@ const Header = ({ history }) => {
       </NavigationList>
       <NavigationList align={ALIGN.center} />
       <NavigationList align={ALIGN.right} style={{ paddingRight: "24px" }}>
+        <NavigationItem>
+          <Button shape={SHAPE.square} onClick={theme.toggleTheme}>
+            <MdLightbulbOutline />
+          </Button>
+        </NavigationItem>
         {auth.user.loggedIn ? (
           <>
             {auth.user.role == "ADMIN" ? (
